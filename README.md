@@ -110,100 +110,104 @@ http://localhost:3000
 
 ## 🔄 Application Workflow
 
-👨‍🎓 Student
--Register and securely log in.
--Create maintenance complaints.
--Upload complaint images.
--Use AI to improve complaint descriptions.
--Track complaint progress through every stage.
+### 👨‍🎓 Student
 
+- Register and securely log in to the platform.
+- Submit hostel maintenance complaints with images.
+- Improve complaint descriptions using AI assistance.
+- Track complaint progress from submission to resolution.
 
+### 👷 Worker
 
-👷 Worker
-View assigned complaints.
-Update complaint status.
-Add completion notes.
-Upload proof images after resolving complaints.
+- View complaints assigned by the administrator.
+- Update complaint status throughout the repair process.
+- Add completion notes after resolving the issue.
+- Upload proof images before marking a complaint as completed.
 
+### 👨‍💼 Admin
 
-👨‍💼 Admin
--Monitor all complaints.
--Assign workers.
-vTrack complaint progress.
-vView analytics and complaint statistics.
-vClose completed complaints.
-
+- Monitor all complaints through a centralized dashboard.
+- Assign complaints to maintenance workers.
+- Track complaint progress and overall statistics.
+- Close complaints after successful resolution.
 
 ---
 
-##  Key Files to Understand Before Your Viva
+## 📂 Core Modules
 
-
-| Module               | Description                                                    |
-| -------------------- | -------------------------------------------------------------- |
-| Authentication       | Secure JWT authentication with role-based access control       |
-| Complaint Management | Complaint creation, assignment, tracking, and resolution       |
-| AI Assistant         | Google Gemini integration for improving complaint descriptions |
-| Image Upload         | Cloudinary integration for complaint and completion images     |
-| Dashboards           | Separate dashboards for Students, Workers, and Administrators  |
-| Notifications        | Keeps users informed about complaint progress                  |
-
-
+| Module | Description |
+|---------|-------------|
+| Authentication | Secure JWT authentication with role-based access control |
+| Complaint Management | Complaint creation, assignment, tracking, and resolution |
+| AI Assistant | Google Gemini integration for generating professional complaint descriptions |
+| Image Upload | Cloudinary integration for complaint and completion image storage |
+| Dashboards | Dedicated dashboards for Students, Workers, and Administrators |
+| Notifications | Complaint status updates and user notifications |
 
 ---
-##  🏗️ System Architecture
 
+## 🏗️ System Architecture
+
+```text
 Student
-    │
-    ▼
-Complaint Registration
-    │
-    ▼
+   │
+   ▼
+Submit Complaint
+   │
+   ▼
 Admin Reviews Complaint
-    │
-    ▼
+   │
+   ▼
 Assigns Worker
-    │
-    ▼
+   │
+   ▼
 Worker Updates Status
-    │
-    ▼
+   │
+   ▼
 Uploads Completion Image
-    │
-    ▼
+   │
+   ▼
 Complaint Completed
+```
 
 ---
-
 
 ## 🔐 Security Features
--JWT Authentication
--Role-Based Access Control
--Password hashing using bcrypt
--Server-side validation using Zod
--Protected API routes
--Secure image storage using Cloudinary
+
+- JWT-based Authentication
+- Role-Based Access Control (RBAC)
+- Password hashing using bcrypt
+- Server-side validation using Zod
+- Protected API routes
+- Secure image storage with Cloudinary
 
 ---
 
-## 🔐Project Highlights
--Full-stack Next.js application
--AI-assisted complaint generation
--Cloud image uploads
-vTimeline-based complaint tracking
--Responsive dashboard interface
--Modular and scalable architecture
--MongoDB Atlas integration
--Production-ready build
+## 📊 Project Highlights
 
+- Full-stack application built with Next.js 14 and TypeScript
+- AI-assisted complaint generation using Google Gemini
+- Secure JWT authentication with role-based authorization
+- Complaint and completion image uploads using Cloudinary
+- End-to-end complaint lifecycle management
+- Timeline-based complaint tracking
+- Responsive dashboards for Students, Workers, and Administrators
+- Modular and scalable project architecture
+- MongoDB Atlas cloud database integration
+- Ready for deployment on Vercel
 
+---
 
-##  Deployment
+## 🚀 Deployment
 
--The application can be deployed using Vercel with MongoDB Atlas and Cloudinary.
+The application is designed to be deployed using:
 
--Configure the required environment variables before deployment.
+- **Vercel** for hosting
+- **MongoDB Atlas** for the database
+- **Cloudinary** for image storage
+- **Google Gemini API** for AI-assisted complaint generation
 
+Configure the required environment variables before deployment.
 
 
 ---
