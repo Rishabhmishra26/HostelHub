@@ -5,9 +5,11 @@
 ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3-38BDF8)
 
 
-HostelHub is a full-stack web application that streamlines hostel maintenance by connecting **students**, **maintenance workers**, and **administrators** on a single platform.
+-HostelHub is a full-stack web application that streamlines hostel maintenance by connecting 
+**students**, **maintenance workers**, and **administrators** on a single platform.
 
-Students can register complaints with AI-assisted descriptions and image uploads, administrators can assign complaints to workers, and workers can update progress with completion notes and images. The system provides real-time status tracking from complaint submission to resolution.
+-Students can register complaints with AI-assisted descriptions and image uploads, administrators can assign complaints to workers, and workers can update progress with completion notes and images.
+-The system provides real-time status tracking from complaint submission to resolution.
 
 ## ✨ Key Features
 
@@ -109,11 +111,11 @@ http://localhost:3000
 ## 🔄 Application Workflow
 
 👨‍🎓 Student
-Register and securely log in.
-Create maintenance complaints.
-Upload complaint images.
-Use AI to improve complaint descriptions.
-Track complaint progress through every stage.
+-Register and securely log in.
+-Create maintenance complaints.
+-Upload complaint images.
+-Use AI to improve complaint descriptions.
+-Track complaint progress through every stage.
 
 
 
@@ -125,11 +127,11 @@ Upload proof images after resolving complaints.
 
 
 👨‍💼 Admin
-Monitor all complaints.
-Assign workers.
-Track complaint progress.
-View analytics and complaint statistics.
-Close completed complaints.
+-Monitor all complaints.
+-Assign workers.
+vTrack complaint progress.
+vView analytics and complaint statistics.
+vClose completed complaints.
 
 
 ---
@@ -175,32 +177,32 @@ Complaint Completed
 
 
 ## 🔐 Security Features
-JWT Authentication
-Role-Based Access Control
-Password hashing using bcrypt
-Server-side validation using Zod
-Protected API routes
-Secure image storage using Cloudinary
+-JWT Authentication
+-Role-Based Access Control
+-Password hashing using bcrypt
+-Server-side validation using Zod
+-Protected API routes
+-Secure image storage using Cloudinary
 
 ---
 
 ## 🔐Project Highlights
-Full-stack Next.js application
-AI-assisted complaint generation
-Cloud image uploads
-Timeline-based complaint tracking
-Responsive dashboard interface
-Modular and scalable architecture
-MongoDB Atlas integration
-Production-ready build
+-Full-stack Next.js application
+-AI-assisted complaint generation
+-Cloud image uploads
+vTimeline-based complaint tracking
+-Responsive dashboard interface
+-Modular and scalable architecture
+-MongoDB Atlas integration
+-Production-ready build
 
 
 
 ##  Deployment
 
-The application can be deployed using Vercel with MongoDB Atlas and Cloudinary.
+-The application can be deployed using Vercel with MongoDB Atlas and Cloudinary.
 
-Configure the required environment variables before deployment.
+-Configure the required environment variables before deployment.
 
 
 
