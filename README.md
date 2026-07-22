@@ -1,4 +1,9 @@
 #  HostelHub – AI Powered Hostel Complaint Management System
+![Next.js](https://img.shields.io/badge/Next.js-14-black)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)
+![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-green)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3-38BDF8)
+![License](https://img.shields.io/badge/License-MIT-yellow)
 
 HostelHub is a full-stack web application that streamlines hostel maintenance by connecting **students**, **maintenance workers**, and **administrators** on a single platform.
 
@@ -17,7 +22,30 @@ Students can register complaints with AI-assisted descriptions and image uploads
 
 ---
 
-## 1. Tech Stack
+
+
+## 📸 Screenshots
+### login page
+<img width="1918" height="917" alt="image" src="https://github.com/user-attachments/assets/e1460e09-e0f1-439f-8403-4120b58ec799" />
+
+
+### Student Dashboard
+<img width="1917" height="917" alt="image" src="https://github.com/user-attachments/assets/e10945b9-7d88-4c9d-8a96-0b05aaaa5e68" />
+
+
+### Admin Dashboard
+<img width="1917" height="913" alt="image" src="https://github.com/user-attachments/assets/d7eb6618-0f65-452e-9e17-a3da35f12778" />
+
+
+### Worker Dashboard
+<img width="1918" height="911" alt="image" src="https://github.com/user-attachments/assets/5f444e27-b2bc-4b04-8386-2ad9fb5576d0" />
+
+
+### Complaint Timeline
+<img width="1918" height="917" alt="image" src="https://github.com/user-attachments/assets/ce2b054f-f40c-4ba7-bfdc-324aab7785c8" />
+
+
+## Tech Stack
 
 | Layer      | Technology |
 |------------|------------|
@@ -33,184 +61,146 @@ Students can register complaints with AI-assisted descriptions and image uploads
 
 ---
 
-## 2. Folder Structure
+##  Folder Structure
 
 ```
-hostelhub/
-├── src/
-│   ├── app/                     # Next.js App Router — every folder = a route
-│   │   ├── (auth)/              # login, register, otp, forgot/reset password
-│   │   ├── student/             # student dashboard, complaints, profile
-│   │   ├── worker/              # worker dashboard, complaint detail
-│   │   ├── admin/               # admin dashboard, complaints, students, workers
-│   │   └── api/                 # REST API routes (backend)
-│   ├── components/
-│   │   ├── ui/                  # tiny reusable pieces: Button, Input, Card...
-│   │   ├── layout/               # Sidebar, Navbar, DashboardShell, AuthLayout
-│   │   ├── complaints/            # ComplaintForm, ComplaintCard, StatusTimeline...
-│   │   └── shared/               # LoadingSpinner, Pagination, SearchBar, EmptyState
-│   ├── models/                   # Mongoose schemas (one file per collection)
-│   ├── lib/                      # db connection, jwt, password, cloudinary, gemini...
-│   │   └── validations/          # Zod schemas, shared by frontend + backend
-│   ├── context/AuthContext.tsx   # who-is-logged-in, available everywhere via useAuth()
-│   ├── hooks/useComplaints.ts    # reusable data-fetching hook
-│   ├── types/index.ts            # shared TypeScript types
-│   └── middleware.ts              # protects /student, /worker, /admin routes
-├── scripts/seed.ts                # fills the DB with sample data
-└── .env.example                   # copy to .env.local and fill in real values
+src
+├── app
+│   ├── (auth)
+│   ├── student
+│   ├── worker
+│   ├── admin
+│   └── api
+├── components
+├── models
+├── lib
+├── hooks
+├── context
+├── middleware.ts
+└── validations
 ```
 
-**Rule of thumb used everywhere:** one file = one responsibility. If you can
-describe what a file does in one sentence, it's probably structured right.
+
 
 ---
 
-## 3. Getting Started
+## 🚀 Running the Project
 
-```bash
-# 1. Install dependencies
 npm install
-
-# 2. Copy the environment file and fill in real values
-cp .env.example .env.local
-
-# 3. Seed the database with sample hostels/students/workers/complaints
-npm run seed
-
-# 4. Run the dev server
 npm run dev
-```
+Create a .env.local file using .env.example and configure your own MongoDB Atlas, Cloudinary, JWT, Gemini API, and SMTP credentials before starting the application.
 
-Open http://localhost:3000
+The application will be available at:
+
+http://localhost:3000
 
 ### Sample logins (created by `npm run seed`, password: `Password@123`)
 | Role    | Email |
 |---------|-------|
-| Admin   | admin@college.edu |
-| Worker  | ramesh.worker@college.edu |
-| Student | asha.verma@college.edu |
+| Admin   | admin@nitdelhi.ac.in |
+| Worker  | ramesh.worker@nitdelhi.ac.in |
+| Student | asha.verma@nitdelhi.ac.in |
 
 > Note: `ALLOWED_EMAIL_DOMAIN` in `.env.local` controls which email domain
-> can register (defaults to `college.edu`).
+> can register (defaults to `@nitdelhi.ac.in`).
 
 ---
 
-## 4. How the App Works (for your viva)
+## 🔄 Application Workflow
 
-### 4.1 Authentication flow
-1. **Register** → `/api/auth/register` creates an *unverified* student and
-   emails a 6-digit OTP (stored **hashed** in the `Otp` collection, with a
-   MongoDB TTL index so it auto-deletes after 10 minutes).
-2. **Verify OTP** → `/api/auth/verify-otp` checks the code and flips
-   `isVerified: true`.
-3. **Login** → `/api/auth/login` checks the password with `bcrypt.compare`,
-   then signs two JWTs:
-   - `accessToken` (15 min) — used on every request
-   - `refreshToken` (7 days) — long-lived, used to silently renew the access
-     token (this "access + refresh" pattern limits how long a stolen token
-     is useful)
-   Both are stored as **httpOnly cookies** (JavaScript in the browser can't
-   read them — this protects against XSS token theft, which is safer than
-   localStorage).
-4. **Every protected page** (`/student/*`, `/worker/*`, `/admin/*`) is
-   guarded by `src/middleware.ts`, which decodes the JWT *before* the page
-   loads and redirects to `/login` (or to the correct role's dashboard) if
-   the check fails. This is **Role Based Access Control**.
+👨‍🎓 Student
+Register and securely log in.
+Create maintenance complaints.
+Upload complaint images.
+Use AI to improve complaint descriptions.
+Track complaint progress through every stage.
 
-### 4.2 Registering a complaint
-1. Student fills the form (`ComplaintForm.tsx`), validated with the same
-   Zod schema on both the browser (instant feedback) and the server
-   (`/api/complaints` POST — never trust the client!).
-2. Optional **"Improve with AI"** button sends the raw text to
-   `/api/ai/suggest`, which calls Gemini and returns a suggested title,
-   category, and cleaned-up description. **The student can edit or ignore
-   it** — nothing is saved until they click Submit.
-3. Images are uploaded one at a time to `/api/upload`, which forwards them
-   to Cloudinary and returns a URL; the URLs are stored on the complaint.
-4. On creation, the complaint gets a `timeline` array starting with
-   `"Pending — Complaint submitted by student"`.
 
-### 4.3 Complaint lifecycle
-```
-Pending → Assigned → In Progress → Completed → Closed
-                                 ↘ Rejected
-```
-- **Admin** assigns a worker (`PATCH /api/complaints/:id/assign`) → status
-  becomes `Assigned`, a new timeline entry is pushed, and the student gets
-  a `Notification`.
-- **Worker** moves it to `In Progress` then `Completed`
-  (`PATCH /api/complaints/:id/status`), optionally attaching a completion
-  image and notes.
-- **Admin** can `Close` it once satisfied.
 
-Every status change appends to the same `timeline` array — that's what
-powers the "Submitted → Assigned → Work Started → Completed" view the
-student sees.
+👷 Worker
+View assigned complaints.
+Update complaint status.
+Add completion notes.
+Upload proof images after resolving complaints.
 
-### 4.4 Database design decisions (good viva talking points)
-- **Embed vs Reference:** `timeline` entries are *embedded* inside each
-  `Complaint` document (they always belong to one complaint and are always
-  read together with it). `assignedWorker` and `student` are *references*
-  (ObjectIds) because Worker/Student documents are large, reused, and
-  updated independently.
-- **`select: false` on passwords:** password hashes are never returned by a
-  normal `.find()` — you must explicitly `.select("+password")`, which is
-  only done inside the login route.
-- **TTL index on OTPs:** `expiresAt` has `expireAfterSeconds: 0`, so MongoDB
-  deletes expired OTPs automatically — no cleanup cron job needed.
-- **Dynamic reference (`refPath`) on `Notification`:** one collection can
-  point to a Student, Worker, *or* Admin without three near-duplicate
-  schemas.
-- **Aggregation pipeline for admin stats:** `/api/admin/stats` uses
-  `$group`/`$sort` to compute hostel-wise and category-wise complaint
-  counts inside MongoDB rather than looping in JavaScript — much faster at
-  scale.
 
-### 4.5 Why Next.js API Routes instead of a separate Express server?
-Both the frontend and backend live in one Next.js project. Each file under
-`src/app/api/**/route.ts` is a serverless function mapped straight to a URL
-— e.g. `src/app/api/complaints/route.ts` → `GET/POST /api/complaints`. This
-keeps the whole app in one repo, one deployment (Vercel), and one language
-(TypeScript) end-to-end.
+👨‍💼 Admin
+Monitor all complaints.
+Assign workers.
+Track complaint progress.
+View analytics and complaint statistics.
+Close completed complaints.
+
 
 ---
 
-## 5. Key Files to Understand Before Your Viva
+##  Key Files to Understand Before Your Viva
 
-| File | What to explain |
-|------|------------------|
-| `src/models/Complaint.ts` | The main schema — explain embed vs. reference |
-| `src/lib/jwt.ts` + `src/middleware.ts` | Access/refresh tokens + route protection |
-| `src/app/api/auth/login/route.ts` | Checking 3 collections, hashing, cookies |
-| `src/components/complaints/ComplaintForm.tsx` | Zod validation + optional AI assist |
-| `src/lib/gemini.ts` | AI feature + graceful fallback if no API key |
-| `src/app/api/admin/stats/route.ts` | MongoDB aggregation pipeline |
+
+| Module               | Description                                                    |
+| -------------------- | -------------------------------------------------------------- |
+| Authentication       | Secure JWT authentication with role-based access control       |
+| Complaint Management | Complaint creation, assignment, tracking, and resolution       |
+| AI Assistant         | Google Gemini integration for improving complaint descriptions |
+| Image Upload         | Cloudinary integration for complaint and completion images     |
+| Dashboards           | Separate dashboards for Students, Workers, and Administrators  |
+| Notifications        | Keeps users informed about complaint progress                  |
+
+
+
+---
+##  🏗️ System Architecture
+
+Student
+    │
+    ▼
+Complaint Registration
+    │
+    ▼
+Admin Reviews Complaint
+    │
+    ▼
+Assigns Worker
+    │
+    ▼
+Worker Updates Status
+    │
+    ▼
+Uploads Completion Image
+    │
+    ▼
+Complaint Completed
 
 ---
 
-## 6. What's Deliberately Kept Simple
 
-This is a portfolio/college project, not a commercial SaaS product, so a
-few things are intentionally minimal and can be called out as "future
-improvements" if asked:
-- Notifications are shown as a simple list (no real-time push/websockets).
-- Admin "Manage Hostels/Floors/Blocks/Rooms" uses the `Hostel` model as
-  reference data but doesn't yet have a full CRUD UI — the API/schema is
-  ready for it.
-- No automated tests are included; Zod + TypeScript catch most mistakes at
-  compile/request time.
+## 🔐 Security Features
+JWT Authentication
+Role-Based Access Control
+Password hashing using bcrypt
+Server-side validation using Zod
+Protected API routes
+Secure image storage using Cloudinary
 
 ---
 
-## 7. Deployment
+## 🔐Project Highlights
+Full-stack Next.js application
+AI-assisted complaint generation
+Cloud image uploads
+Timeline-based complaint tracking
+Responsive dashboard interface
+Modular and scalable architecture
+MongoDB Atlas integration
+Production-ready build
 
-1. Push this repo to GitHub.
-2. Create a free MongoDB Atlas cluster → copy the connection string into
-   `MONGODB_URI`.
-3. Import the project into **Vercel**, add all variables from
-   `.env.example` under Project Settings → Environment Variables.
-4. Deploy. Run `npm run seed` locally (pointed at your Atlas URI) once to
-   populate sample data, or register through the UI.
+
+
+##  Deployment
+
+The application can be deployed using Vercel with MongoDB Atlas and Cloudinary.
+
+Configure the required environment variables before deployment.
 
 
 
