@@ -3,7 +3,7 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)
 ![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-green)
 ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3-38BDF8)
-![License](https://img.shields.io/badge/License-MIT-yellow)
+
 
 HostelHub is a full-stack web application that streamlines hostel maintenance by connecting **students**, **maintenance workers**, and **administrators** on a single platform.
 
