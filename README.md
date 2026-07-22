@@ -98,7 +98,7 @@ http://localhost:3000
 | Role    | Email |
 |---------|-------|
 | Admin   | admin@nitdelhi.ac.in |
-| Worker  | ramesh.worker@nitdelhi.ac.in |
+| Worker  | ramesh.worker@gmail.com|
 | Student | asha.verma@nitdelhi.ac.in |
 
 > Note: `ALLOWED_EMAIL_DOMAIN` in `.env.local` controls which email domain
