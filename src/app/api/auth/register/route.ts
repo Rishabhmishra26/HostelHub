@@ -45,8 +45,16 @@ export async function POST(req: NextRequest) {
     await Otp.create({ email, code: hashedOtp, purpose: "verify-email", expiresAt: otpExpiryDate() });
 
     console.log("OTP for", email, "is", otp);
-    // await sendEmail(email, "Verify your HostelHub account", otpEmailTemplate(otp));
 
+    try {
+      await sendEmail(
+        email,
+        "Verify your HostelHub account",
+        otpEmailTemplate(otp)
+      );
+    } catch (err) {
+      console.error("Email sending failed:", err);
+    }
     return NextResponse.json({ message: "Registered. Check your email for the OTP." }, { status: 201 });
   } catch (err) {
     console.error(err);
