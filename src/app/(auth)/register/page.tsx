@@ -27,16 +27,25 @@ export default function RegisterPage() {
 
   async function onSubmit(values: RegisterInput) {
     setServerError("");
+
     const res = await fetch("/api/auth/register", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(values),
     });
+
     const data = await res.json();
 
     if (!res.ok) {
       setServerError(data.message || "Registration failed");
       return;
+    }
+
+    // Show success message before redirecting
+    if (data.message) {
+      alert(data.message);
     }
 
     router.push(`/verify-otp?email=${encodeURIComponent(values.email)}`);

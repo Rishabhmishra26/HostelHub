@@ -29,10 +29,47 @@ export async function POST(req: NextRequest) {
     await connectDB();
 
     const existing = await Student.findOne({ email });
-    if (existing) {
-      return NextResponse.json({ message: "An account with this email already exists" }, { status: 409 });
-    }
 
+    if (existing) {
+      if (existing.isVerified) {
+        return NextResponse.json(
+          { message: "Account already exists. Please log in." },
+          { status: 409 }
+        );
+      }
+
+      // User exists but hasn't verified yet → generate a fresh OTP
+      const otp = generateOtp();
+      const hashedOtp = await hashPassword(otp);
+
+      await Otp.findOneAndDelete({
+        email,
+        purpose: "verify-email",
+      });
+
+      await Otp.create({
+        email,
+        code: hashedOtp,
+        purpose: "verify-email",
+        expiresAt: otpExpiryDate(),
+      });
+
+      console.log("OTP for", email, "is", otp);
+
+      await sendEmail(
+        email,
+        "Verify your HostelHub account",
+        otpEmailTemplate(otp)
+      );
+
+      return NextResponse.json(
+        {
+          message: "Verification pending. We've sent you a new OTP.",
+          needsVerification: true,
+        },
+        { status: 200 }
+      );
+    }
     const hashedPassword = await hashPassword(password);
     await Student.create({
       name, email, password: hashedPassword, hostel, floor, block, roomNumber, isVerified: false,

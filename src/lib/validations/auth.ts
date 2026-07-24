@@ -17,10 +17,7 @@ const allowedDomain = "nitdelhi.ac.in";
 
 export const collegeEmailSchema = z
   .string()
-  .email("Enter a valid email address")
-  .refine((email) => email.toLowerCase().endsWith(`@${allowedDomain}`), {
-    message: `Only official college email addresses (@${allowedDomain}) are allowed`,
-  });
+  .email("Enter a valid email address");
 
 export const registerSchema = z
   .object({
